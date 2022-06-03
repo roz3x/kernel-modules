@@ -1,0 +1,16 @@
+roz@chill:~$ sudo -i
+[sudo] password for roz: 
+root@chill:~# cd /sys/kernel/eudyptula/
+root@chill:/sys/kernel/eudyptula# ls
+foo  id  jiffies
+root@chill:/sys/kernel/eudyptula# echo hello > foo
+root@chill:/sys/kernel/eudyptula# cat foo
+hello
+root@chill:/sys/kernel/eudyptula# cat id
+bedff03b2176
+root@chill:/sys/kernel/eudyptula# echo $(cat id) > id
+root@chill:/sys/kernel/eudyptula# cat jiffies
+4295418131root@chill:/sys/kernel/eudyptula# cat jiffies && echo 
+4295419535
+root@chill:/sys/kernel/eudyptula# 
+

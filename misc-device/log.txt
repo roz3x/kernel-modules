@@ -1,0 +1,19 @@
+make -C /lib/modules/5.11.0-051100rc6-generic/build M=/home/roz/personal/misc clean
+make[1]: Entering directory '/usr/src/linux-headers-5.11.0-051100rc6-generic'
+  CLEAN   /home/roz/personal/misc/Module.symvers
+make[1]: Leaving directory '/usr/src/linux-headers-5.11.0-051100rc6-generic'
+make -C /lib/modules/5.11.0-051100rc6-generic/build M=/home/roz/personal/misc modules
+make[1]: Entering directory '/usr/src/linux-headers-5.11.0-051100rc6-generic'
+  CC [M]  /home/roz/personal/misc/misc.o
+  MODPOST /home/roz/personal/misc/Module.symvers
+  CC [M]  /home/roz/personal/misc/misc.mod.o
+  LD [M]  /home/roz/personal/misc/misc.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.11.0-051100rc6-generic'
+cat /dev/eudyptula
+bedff03b2176echo bedff03b2176 > /dev/eudyptula
+echo 0
+0
+echo hello > /dev/eudyptula
+./run.sh: 15: echo: echo: I/O error
+echo 1
+0

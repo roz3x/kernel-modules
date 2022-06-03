@@ -1,0 +1,67 @@
+From 009cb0f8448fd442025c443a90cef0abade5f14f Mon Sep 17 00:00:00 2001
+From: shivang upadhyay <oroz3x@gmail.com>
+Date: Tue, 23 Feb 2021 20:16:17 +0530
+Subject: [PATCH] serio: i8042: added device file id
+
+added device file id for eudyptula challange
+
+Signed-off-by: shivang upadhyay <oroz3x@gmail.com>
+---
+ drivers/input/serio/i8042.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/input/serio/i8042.c b/drivers/input/serio/i8042.c
+index abae23af0791..d02ecb9380f2 100644
+--- a/drivers/input/serio/i8042.c
++++ b/drivers/input/serio/i8042.c
+@@ -23,6 +23,9 @@
+ #include <linux/suspend.h>
+ #include <linux/property.h>
+ 
++#include <linux/device.h>
++#include <linux/sysfs.h>
++
+ #include <asm/io.h>
+ 
+ MODULE_AUTHOR("Vojtech Pavlik <vojtech@suse.cz>");
+@@ -1608,6 +1611,28 @@ static struct notifier_block i8042_kbd_bind_notifier_block = {
+ 	.notifier_call = i8042_kbd_bind_notifier,
+ };
+ 
++
++
++static ssize_t id_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	char *id = "bedff03b2176";
++	return sysfs_emit(buf, "%s\n", id);
++}
++
++static ssize_t id_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t len)
++{
++	char *id = "bedff03b2176";
++	if (len != 13)
++		return -EINVAL;
++
++	if (strncmp(buf, id, len-1))
++		return -EINVAL;
++
++        return len;
++}
++
++static DEVICE_ATTR_RW(id);
++
+ static int __init i8042_init(void)
+ {
+ 	struct platform_device *pdev;
+@@ -1635,6 +1660,8 @@ static int __init i8042_init(void)
+ 	bus_register_notifier(&serio_bus, &i8042_kbd_bind_notifier_block);
+ 	panic_blink = i8042_panic_blink;
+ 
++	err = device_create_file(&pdev->dev , &dev_attr_id);
++
+ 	return 0;
+ 
+  err_platform_exit:
+-- 
+2.27.0
+

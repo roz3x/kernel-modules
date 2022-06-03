@@ -1,0 +1,22 @@
+[    1.428271] tsc: Refined TSC clocksource calibration: 2370.470 MHz
+[    1.429468] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x222b3f4d55a, max_idle_ns: 440795203387 ns
+[    1.430398] clocksource: Switched to clocksource tsc
+PS1=$\ 
+$ cd /sys/devices/platform/
+$ ls
+PNP0103:00              platform-framebuffer.0  serial8250
+i8042                   power                   uevent
+pcspkr                  regulatory.0
+[   21.615408] ls (71) used greatest stack depth: 14584 bytes left
+$ cd i8042/
+$ ls
+driver           modalias         serio1
+driver_override  power            subsystem
+id               serio0           uevent
+$ cat id
+bedff03b2176
+$ echo hello > id
+sh: write error: Invalid argument
+$ echo $(cat id) > id
+$ 
+
